@@ -1,0 +1,88 @@
+    body {
+        font: 15px Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+        background: green;
+        display: flex;
+        flex-direction: column;
+        height: -webkit-fill-available;
+    }
+
+    
+    /* Global */    
+    ul {
+        margin:0;
+        padding: 0;
+    }
+
+    /* Header */
+
+    
+    header {
+        background: black;
+        color:white;
+        height: 80px;
+        border-bottom: green 1.5px solid;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+    header a {
+        color:white;
+        text-transform: uppercase;
+        font-size:16px;
+    }
+
+
+    header li {
+        float: left;
+        display: inline;
+        padding: 0 20px 0 20px;
+    }
+
+    header #branding {
+        float: left;
+        font-size: 24px;
+    }
+
+
+    header nav{
+        float: right;
+        margin-top: 10px;
+    }   
+
+    /*Showcase*/
+    #showcase {
+        flex-grow:1;
+        background: url('../images/court.jpg') no-repeat 0 -420px;
+        color:white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #showcase h1 {
+        margin: 0;
+    }
+
+    #showcase p {
+        margin: 0;
+    }
+
+
+    .showcase_container {
+        padding: 20px 40px 20px 20px;
+
+    }
+
+    .showcase_footer {
+        width: -webkit-fill-available;
+        justify-content: space-around;
+        align-items: center;
+        display: flex;
+        /* padding-left:150px;
+        padding-right: 150px; */
+    }
