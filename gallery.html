@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A website for the greek basketball player Giannis Antetokounmpo">
+    <meta name="keywords" content="Giannis Antetokounmpo, basketball, Antetokounmpo, NBA, Milwaukee Bucks">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Website for Antetokounmpo | Welcome</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/png" href="./images/gfavicon.png">
+</head>
+<style>
+        #yImages {
+            margin: 50;
+        }
+        figure.gallery {
+            margin: 5px;
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            float: left;
+            width: 400px;
+            height: 400px;
+        }
+
+        figure.gallery:hover {
+            border: 1px solid #777;
+            display: block;
+        }
+
+        figure.gallery img {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        figure.gallery:hover img {
+            display: block;
+            transform: scale(1.05);
+        }
+</style>
+<body>
+    <header>
+        <h1>Giannis Antetokounmpo</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="stats.html">Stats</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <div class="main-page" style="">
+        <div class="main-page__information">
+            <div class="page-title__container">
+                <div class="page-title">Gallery</div>
+            </div>
+            <button>Press</button>
+
+            
+            <div id="yImages">
+            </div>
+
+            <script>
+
+                var images = [["g_bros_nation.png","Antetokoubros"],
+                                ["g_nba2k.png","Yannis NBA 2K"],
+                                ["g_bucks_yellow.png","Yannis Bucks's yellow t-shirt"],
+                                ["g_extreme_dunk.png","Yannis extreme dunk"],
+                                ["g_dunk.png","Yannis dunk"],
+                                ["g_dunk2.png","Yannis dunk"],
+                                ["g_dunk3.png","Yannis dunk"],
+                                ["g_dunk4.png","Yannis dunk"],
+                                ["g_play_making.png","Yannis play making"],
+                                ["g_play_making2.png","Yannis play making"],
+                                ["g_jump.png","Yannis jump"],
+                                ["g_noir.png","Yannis noir photo"]];
+
+                var docker = document.createElement("p");
+                for(var i=0; i < images.length ; i++ ){
+                    var image = document.createElement("IMG")
+                    image.src = "images/gallery/" + images[i][0];
+                    image.alt = images[i][1];
+                    image.width = 400;
+                    image.height = 400;
+                    var fcaption = document.createElement("FIGCAPTION");
+                    var title = document.createTextNode(images[i][1]);
+
+                    fcaption.appendChild(title);
+                    var figure = document.createElement("FIGURE");
+                    figure.className = "gallery";
+                    figure.appendChild(image);
+                    figure.appendChild(fcaption);
+
+                    docker.appendChild(figure);
+                }
+
+                document.getElementById("yImages").appendChild(docker);
+            </script>
+        </div>
+
+
+        <div class="banners">
+            <a href="https://www.nba.com"><img src="./images/nba.png" alt="NBA_LOGO" height="200px" width="200px"></a>
+            <a href="https://www.facebook.com/GreekFreakOfficial/"><img src="./images/fb.png" alt="FACEBOOK_LOGO"
+                    height="150px" width="150px"></a>
+            <a href="https://www.nba.com/bucks"><img src="./images/bucks.png" alt="BUCK_LOGOG" height="230px" width="200px"></a>
+        </div>
+    </div>
+</body>
+</html>
