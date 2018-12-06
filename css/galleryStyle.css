@@ -66,6 +66,9 @@ figure.gallery:hover img {
     background-color: white;
 }
 .close {
+    /* we should fix the position
+        -> put the button up to image
+    */
     position: absolute;
     width: 30px;
     height: 30px;

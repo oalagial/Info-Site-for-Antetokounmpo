@@ -198,7 +198,15 @@
                     }
                     return null;
                 }
-            </script>
+                
+                var temp = document.getElementById("divModal");
+                window.onclick = function(event) {
+                    if (event.target == temp) {
+                        temp.style.display = "none";
+                        while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
+                    }
+}
+           </script>
         </div>
 
 
