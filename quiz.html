@@ -54,65 +54,52 @@
 </html>
 
 <script>
-    var quizData = [["Question1","Answer1|1","Answer2|1","Answer3|1","Answer4|1",1], //the last element is the right answer
-                    ["Question2","Answer1|2","Answer2|2","Answer3|2","Answer4|2",2],
-                    ["Question3","Answer1|3","Answer2|3","Answer3|3","Answer4|3",3],
-                    ["Question4","Answer1|4","Answer2|4","Answer3|4","Answer4|4",4],
-                    ["Question5","Answer1|5","Answer2|5","Answer3|5","Answer4|5",1]]
+    var quizData = [["Question1","Answer1|1-True","Answer2|1","Answer3|1","Answer4|1",0], //the last element is the right answer
+                    ["Question2","Answer1|2","Answer2|2-True","Answer3|2","Answer4|2",1],
+                    ["Question3","Answer1|3","Answer2|3","Answer3|3-True","Answer4|3",2],
+                    ["Question4","Answer1|4","Answer2|4","Answer3|4","Answer4|4-True",3],
+                    ["Question5","Answer1|5-True","Answer2|5","Answer3|5","Answer4|5",0]]
+
+    var userAnswers = [];
+
     function startGame(){
-        var userAnswers = [];
+        document.getElementById("startButton").style.visibility = "hidden";
+        document.getElementById("statsButton").style.visibility = "hidden";
+        
         var gameDiv = document.getElementById("gameDiv");
         
         var questForm = formCreator();
         questForm.id = "questForm";
-
-
+        
+        var endGame = document.createElement("SPAN");
+        endGame.id = "endGame";
+        endGame.style.visibility = "hidden";
+        
+        var menuBttn = document.createElement("BUTTON");
+        menuBttn.appendChild(document.createTextNode("Menu"));
+        menuBttn.id = "menuBttn";
+        menuBttn.className = "quizBttn"
+        menuBttn.style.visibility = "hidden";
+        menuBttn.onclick = function(){
+            document.getElementById("startButton").style.visibility = "visible";
+            document.getElementById("statsButton").style.visibility = "visible";
+            document.getElementById("menuBttn").style.visibility = "hidden";
+            while (gameDiv.firstChild) gameDiv.removeChild(gameDiv.firstChild);
+        }
+        
         gameDiv.appendChild(questForm);
+        gameDiv.appendChild(endGame);
+        gameDiv.appendChild(menuBttn);
             
     }
-    /***
-    * scoreCalculation: return the number of right answers
-    ***/
-    function scoreCalculation(userAnswers){
-        /* sorting userAnswers array by id to compare with the right answers in quizData array*/
-        userAnswers.sort(answerSort);
-        function answerSort(a,b){
-            if(a[0]==b[0]){
-                return 0;
-            }else{
-                return (a[0]<b[0]) ? -1 :1
-            }
-        }
-
-        var rightAnswers = 0;
-        for (var i=0;i<quizData.length; i++){
-            if(userAnswers[i][0]==quizData[i][0] && userAnswers[i][1]==quizData[i][5]){
-                rightAnswers++;
-            }
-        }
-        return rightAnswers;
-    }
-
-    /***
-     * Create elements for the question form
-    ***/
     function formCreator(){
         var questForm = document.createElement("FORM");
-
+        questForm.className="quiz__information-container";
         var question = questionCreator(0);
         
-        var nextBttn = document.createElement("BUTTON");
-        nextBttn.appendChild(document.createTextNode("Next"));
-        nextBttn.id = "nextBttn";
-        
-        var prevBttn = document.createElement("BUTTON");
-        prevBttn.appendChild(document.createTextNode("Previous"));
-        prevBttn.id = "prevBttn";
-        
         questForm.appendChild(question);
-        questForm.appendChild(nextBttn);
-        questForm.appendChild(prevBttn);
-
+        
+        
         return questForm;
     }
 
@@ -135,6 +122,9 @@
         var selections = document.createElement("SELECT");
         selections.id = "selections";
         selections.setAttribute("size","4");
+        selections.onchange = function(){
+            document.getElementById("nextBttn").disabled = false;
+        } 
 
         /*
          * create options for select
@@ -147,9 +137,114 @@
             selections.appendChild(option);
         }
         
+        /* Button Container div*/
+        var bttnContainer = document.createElement("div");
+        bttnContainer.className = "bttnContainer";
+        
+        
+        var nextBttn = document.createElement("BUTTON");
+        nextBttn.appendChild(document.createTextNode("Next"));
+        nextBttn.className = "quizBttn";
+        nextBttn.id = "nextBttn";
+        nextBttn.disabled = true;
+        nextBttn.onclick = function(){
+            userAnswersUpdate(qIndex,selections.selectedIndex);
+            while (questDiv.firstChild) questDiv.removeChild(questDiv.firstChild);
+            if((1+qIndex) < quizData.length){
+                questForm.appendChild(questionCreator(1+qIndex));
+            }else{//when the game is over
+                var endText = document.getElementById("endGame");
+                var text = "Your score is " + scoreCalculation() + " in " + quizData.length + " questions!";
+                endText.appendChild(document.createTextNode(text));
+                endText.style.visibility = "visible";
+                questForm.style.visibility = "hidden";
+                
+                var endButton = document.getElementById("menuBttn");
+                endButton.style.visibility = "visible";
+                
+            }
+        };
+        
+        var prevBttn = document.createElement("BUTTON");
+        prevBttn.appendChild(document.createTextNode("Previous"));
+        prevBttn.className = "quizBttn";
+        prevBttn.id = "prevBttn";
+        prevBttn.style.visibility = (qIndex==0) ? "hidden" :"visible"; //hide in the first question
+        prevBttn.onclick = function(){
+            while (questDiv.firstChild) questDiv.removeChild(questDiv.firstChild);
+            questForm.appendChild(questionCreator(qIndex-1));
+            selections.selectedIndex = ""+findAnswer(qIndex-1);
+        }
+
+
+        /*add the buttons in button container*/
+        bttnContainer.appendChild(nextBttn);
+        bttnContainer.appendChild(prevBttn);
+
+
         questDiv.appendChild(question);
         questDiv.appendChild(selections);
+        questDiv.appendChild(bttnContainer);
         return questDiv;
 
     }
+
+    /***
+    * qId: question's id
+    * answer: the selectedIndex of options
+    ***/
+    function userAnswersUpdate(qId,answer){
+        qId+=1;
+        quest = "Question" + qId
+        for (var i=0;i<userAnswers.length;i++){
+            if(quest == userAnswers[i][0]){
+                userAnswers[i][1]= answer;
+                return;
+            }
+        }
+        var newAns = [quest,answer];
+        userAnswers.push(newAns);
+
+        /* sorting userAnswers array by id to compare with the right answers in quizData array*/
+        userAnswers.sort(answerSort);
+        function answerSort(a,b){
+            if(a[0]==b[0]){
+                return 0;
+            }else{
+                return (a[0]<b[0]) ? -1 :1
+            }
+        }
+    }
+
+    /*search in the array of user's answers which is the qId 's answer */
+    function findAnswer(qId){
+        qId+=1;
+        quest = "Question" + qId;
+        for (var i =0; i<userAnswers.length;i++){
+            if(quest == userAnswers[i][0]){
+                return userAnswers[i][1];
+            }
+        }
+        return -1;
+    }
+    /***
+    * scoreCalculation: return the number of right answers
+    ***/
+    function scoreCalculation(){
+        var rightAnswers = 0;
+        if(userAnswers.length!=0){
+            for (var i=0;i<quizData.length; i++){
+                if(userAnswers[i][0]==quizData[i][0] && userAnswers[i][1]==quizData[i][5]){
+                    rightAnswers++;
+                }
+            }
+            return rightAnswers;
+        }
+        return null;
+            
+    }
+
+    /***
+     * Create elements for the question form
+    ***/
 </script>

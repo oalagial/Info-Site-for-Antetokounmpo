@@ -132,7 +132,6 @@
         leftArrow.className = "arrows";
         leftArrow.id = "leftArrow";
         leftArrow.onclick = function(){
-            console.log(source);
             var divModal = document.getElementById("divModal");
             var index = findPrevious(source)%images.length;
             while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
