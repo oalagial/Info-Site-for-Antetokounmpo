@@ -34,12 +34,12 @@
                 <div class="page-title">QUIZ</div>
             </div>
 
-            <div class="quiz__information-container">
+            <div class="quiz__information-container" id="button-container">
                 <button class="quizBttn" id="startButton" onclick="startGame()">Start</button>
                 <button class="quizBttn" id="statsButton">Stats</button>
-                <div id="gameDiv"></div>
+                
             </div>
-
+            <div id="gameDiv"></div>
         </div>
     </div>
 
@@ -62,9 +62,13 @@
 
     var userAnswers = [];
 
+
+    /***
+    * on start button click the game is starting
+    * startGame()
+    ***/
     function startGame(){
-        document.getElementById("startButton").style.visibility = "hidden";
-        document.getElementById("statsButton").style.visibility = "hidden";
+        document.getElementById("button-container").style.display = "none";
         
         var gameDiv = document.getElementById("gameDiv");
         
@@ -73,17 +77,15 @@
         
         var endGame = document.createElement("SPAN");
         endGame.id = "endGame";
-        endGame.style.visibility = "hidden";
-        
+        endGame.style.display = "none";
         var menuBttn = document.createElement("BUTTON");
         menuBttn.appendChild(document.createTextNode("Menu"));
         menuBttn.id = "menuBttn";
         menuBttn.className = "quizBttn"
-        menuBttn.style.visibility = "hidden";
+        menuBttn.style.display = "none";
         menuBttn.onclick = function(){
-            document.getElementById("startButton").style.visibility = "visible";
-            document.getElementById("statsButton").style.visibility = "visible";
-            document.getElementById("menuBttn").style.visibility = "hidden";
+            document.getElementById("button-container").style.display = "block";
+            document.getElementById("menuBttn").style.display = "none";
             while (gameDiv.firstChild) gameDiv.removeChild(gameDiv.firstChild);
         }
         
@@ -92,9 +94,13 @@
         gameDiv.appendChild(menuBttn);
             
     }
+
+
+
     function formCreator(){
         var questForm = document.createElement("FORM");
         questForm.className="quiz__information-container";
+        questForm.id = "questForm";
         var question = questionCreator(0);
         
         questForm.appendChild(question);
@@ -124,7 +130,7 @@
         selections.setAttribute("size","4");
         selections.onchange = function(){
             document.getElementById("nextBttn").disabled = false;
-        } 
+        }
 
         /*
          * create options for select
@@ -156,11 +162,11 @@
                 var endText = document.getElementById("endGame");
                 var text = "Your score is " + scoreCalculation() + " in " + quizData.length + " questions!";
                 endText.appendChild(document.createTextNode(text));
-                endText.style.visibility = "visible";
-                questForm.style.visibility = "hidden";
-                
+                endText.style.display = "block";
+                questForm.style.display = "none";
+
                 var endButton = document.getElementById("menuBttn");
-                endButton.style.visibility = "visible";
+                endButton.style.display = "block";
                 
             }
         };

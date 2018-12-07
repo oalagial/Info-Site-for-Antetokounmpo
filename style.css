@@ -181,6 +181,15 @@
         background-color: DodgerBlue;
     }
 
+    .options:hover {
+        background-color: lightblue;
+        border: 0.5px solid;
+    }
+
+    .options:visited {
+        background-color: lightgreen;
+    }
+
     .quiz__information-container {
         margin-top:20px;
         border-radius: 10px;
@@ -212,7 +221,22 @@
 
     .bttnContainer {
         /* buttons div container */
-        display: inline;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    #questForm{
+        margin-top:20px;
+        border-radius: 5px;
+        border: 1.5px solid;
+        overflow-y: auto;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
 
