@@ -1,0 +1,317 @@
+    body {
+        font: 15px Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+        background: url('./images/court.jpg') repeat; 
+        display: flex;
+        flex-direction: column;
+        height: -webkit-fill-available;
+        }
+
+    
+    /* Global */    
+    ul {
+        margin:0;
+        padding: 0;
+    }
+
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+     
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+        border-radius: 10px;
+    }
+     
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    }
+
+    td {
+        padding: 5px;
+    }
+
+    th {
+        padding: 5px;
+    }
+
+
+
+    /* Header */
+
+    
+    header {
+        background: black;
+        color:white;
+        height: 80px;
+        border-bottom: green 1.5px solid;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+    header a {
+        color:white;
+        text-transform: uppercase;
+        font-size:16px;
+    }
+
+
+    header li {
+        float: left;
+        display: inline;
+        padding: 0 20px 0 20px;
+    }
+
+    header #branding {
+        float: left;
+        font-size: 24px;
+    }
+
+
+    header nav{
+        float: right;
+        margin-top: 10px;
+    }   
+
+
+
+
+
+
+
+
+
+    .main-page {
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* min-height: -webkit-fill-available;; */
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    .banners {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center; 
+    }
+
+    .main-page__information {
+        width:-webkit-fill-available;
+        margin:20px;
+    }
+
+    .page-title {
+        font-size:46px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .page-title__container {
+        width: 100%;
+        height: 50px;
+        color: green;
+        display: flex;
+        align-items: center;
+    }
+
+    .information-container {
+        margin-top:20px;
+        border-radius: 10px;
+        padding:20px;
+        background-color: lightgray;
+        color:black;
+        overflow-y: auto;
+    }
+
+    .information-container h1 {
+        margin: 0;
+    }
+
+
+    /*********** STATS PAGE **************/
+
+    .stats__information-container {
+        margin-top:20px;
+        border-radius: 10px;
+        padding:20px;
+        background-color: lightgray;
+        color:black;
+        overflow-y: auto;
+        width: max-content;
+    }
+
+    
+    .stats__information-container h1 {
+        margin: 0;
+    }
+
+    /******** Quiz Page ***********/
+
+    #questForm {
+        background-color: #ffffff;
+        margin: 100px auto;
+        padding: 40px;
+        width: 70%;
+        min-width: 300px;
+      }
+    
+    #question {
+        font-family: Raleway;
+        color: black;
+    }
+    #selections {
+        
+        width: fixed;
+        height: auto;
+        border: none;
+        padding-bottom: 10%;
+    
+    }
+    .options{
+        font-size: large;
+        width: auto;
+        height: auto;
+        background-color: DodgerBlue;
+    }
+
+    .quiz__information-container {
+        margin-top:20px;
+        border-radius: 10px;
+        padding:20px;
+        background-color: lightgray;
+        color:black;
+        overflow-y: auto;
+        width: 50%;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+    .quiz__information-container h1 {
+        margin: 0;
+    }
+
+    .quizBttn {
+        padding: 15px 50px 15px 50px;
+        margin:20px;
+        color: green;
+        border-radius: 5px;
+        border: green 1.5px solid;
+        /* flex-grow: 1; */
+        font-size: 22px;
+    }
+
+
+
+
+
+
+
+    /********* Gallery **********/
+    #yImages {
+        display: block;
+        margin: auto;
+        /* margin-right: auto;
+        margin-left: auto; */
+    }
+    figure.gallery {
+        margin: 5px;
+        margin-bottom: 30px;
+        float: left;
+        width: 400px;
+        height: 400px;
+        cursor: pointer;
+    }
+    
+    figure.gallery:hover {
+        /* border: 1px solid #777; */
+        display: block;
+        transform: scale(1.05);
+        font-weight: bold;
+    }
+    
+    figure.gallery img {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+    figure.gallery:hover img {
+        display: block;
+    }
+    
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+    
+    /* Modal Content (image) */
+    .modal-content {
+        position: relative;
+        margin: auto;
+        display: block;
+        max-width: 700px;
+    }
+    
+    /* Caption of Modal Image */
+    #caption {
+        position: relative;
+        margin: auto;
+        display: block;
+        width: auto;
+        max-width: 700px;
+        height: auto;
+        text-align: center;
+        color: black;
+        padding: 10px 0;
+        background-color: white;
+    }
+    .close {
+        /* we should fix the position
+            -> put the button up to image
+        */
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 5%;
+        right: 5%;
+    }
+    .close:hover{
+        transform: scaleX(1.1);
+    }
+    .arrows:hover {
+        transform: scale(1.1);
+    }
+    #rightArrow {
+        position: absolute;
+        width: 50px;
+        height: 75px;
+        top: 50%;
+        right: 5%;
+    }
+    
+    #leftArrow {
+        position: absolute;
+        width: 50px;
+        height: 75px;
+        top: 50%;
+        left: 5%;
+    }
