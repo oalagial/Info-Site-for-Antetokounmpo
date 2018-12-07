@@ -27,186 +27,17 @@
 
 
 
-    <div class="main-page" style="">
+    <div class="main-page">
         <div class="main-page__information">
             <div class="page-title__container">
                 <div class="page-title">Gallery</div>
             </div>
 
-            <button onclick="findNext()">View</button>
-
-            
+            <!-- <button>View</button> -->
             <div id="yImages"></div>
             <div id="divModal" class="modal"></div>
 
-            <script>
-                /***
-                         * array images with pair of image url and image label
-                    ***/
-                var images = [["g_bros_nation.png","Antetokoubros"],
-                                    ["g_nba2k.png","Yannis NBA 2K"],
-                                    ["g_bucks_yellow.png","Yannis Bucks's yellow t-shirt"],
-                                    ["g_extreme_dunk.png","Yannis extreme dunk"],
-                                    ["g_dunk.png","Yannis dunk"],
-                                    ["g_dunk2.png","Yannis dunk"],
-                                    ["g_dunk3.png","Yannis dunk"],
-                                    ["g_dunk4.png","Yannis dunk"],
-                                    ["g_play_making.png","Yannis play making"],
-                                    ["g_play_making2.png","Yannis play making"],
-                                    ["g_jump.png","Yannis jump"],
-                                    ["g_noir.png","Yannis noir photo"]];
-                function loadImage(){
-
-                    var docker = document.createElement("p");
-
-                    for(var i=0; i < images.length ; i++ ){
-                        /***
-                         * image creating, sourcing by images
-                         ***/
-                        var image = document.createElement("IMG");
-                        image.src = "images/gallery/" + images[i][0];
-                        image.alt = images[i][1];
-                        image.width = 400;
-                        image.height = 400;
-                        image.onclick = function(i){
-                            console.log(i.srcElement.src);
-                            modalImage(i.srcElement.src,i.srcElement.alt);
-                        };
-                        /***
-                         * figcaption is used to add a caption for the figure element
-                         * figure element grouping image with comment 
-                         ***/
-                        var fcaption = document.createElement("FIGCAPTION");
-                        var title = document.createTextNode(images[i][1]);
-
-                        fcaption.appendChild(title);
-                        var figure = document.createElement("FIGURE");
-                        figure.className = "gallery";
-                        figure.appendChild(image);
-                        figure.appendChild(fcaption);
-
-                        docker.appendChild(figure);
-                    }
-                    document.getElementById("yImages").appendChild(docker);
-                }
-
-                function modalImage(source,alt){
-                    /***
-                     * div modal
-                     * image opening
-                     ***/
-                    var image = document.createElement("IMG");
-                    image.className = ("modal-content");
-                    image.src = source;
-                    /***
-                     * span: text with alt-image
-                     ***/
-                    var captionLabel = document.createElement("SPAN");
-                    var t2 = document.createTextNode(alt);
-                    captionLabel.appendChild(t2)
-                    captionLabel.id = "caption";
-                    
-                    /***
-                     * arrows creating (left-right)
-                     ***/
-                    var rightArrow = document.createElement("IMG");
-                    rightArrow.src = "images/rightArrow.png";
-                    rightArrow.className = "arrows";
-                    rightArrow.id = "rightArrow";
-                    rightArrow.onclick = function(){
-                        var divModal = document.getElementById("divModal");
-                        var index = findNext(source)%images.length;
-                        while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
-                        /*
-                         * newSource: adds the path to the image title
-                        */
-                        var newSource = "images/gallery/" + images[index][0];
-                        modalImage(newSource,images[index][1]);
-                    }
-
-                    var leftArrow = document.createElement("IMG");
-                    leftArrow.src = "images/leftArrow.png";
-                    leftArrow.className = "arrows";
-                    leftArrow.id = "leftArrow";
-                    leftArrow.onclick = function(){
-                        console.log(source);
-                        var divModal = document.getElementById("divModal");
-                        var index = findPrevious(source)%images.length;
-                        while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
-                        /*
-                         * newSource: adds the path to the image title
-                        */
-                        var newSource = "images/gallery/" + images[index][0];
-                        modalImage(newSource,images[index][1]);
-                    }
-                    /***
-                     * close button creating
-                     ***/
-                    var closeBttn = document.createElement("IMG");
-                        closeBttn.src = "images/closeBttn.png";
-                        closeBttn.className = "close";
-                        closeBttn.onclick = function(){
-                            var divModal = document.getElementById("divModal")
-                            divModal.style.display = "none";
-                            while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
-                        }
-                    
-                    /***
-                     * Input children nodes in parent div(modal).
-                     ***/
-                    var divModal = document.getElementById("divModal")
-                    divModal.style.display = "block";
-                    divModal.appendChild(closeBttn);
-                    divModal.appendChild(rightArrow);
-                    divModal.appendChild(leftArrow);
-                    divModal.appendChild(image);
-                    divModal.appendChild(captionLabel);
-                }
-                /***
-                 * find the next image of images-array
-                ***/
-                function findNext(source){
-                    /***
-                     * imageSrc: take just the image title from the path of image source
-                    ***/
-                    // var imageSrc = source;
-                    var imageSrc = source.slice(1+source.search("/g_"),source.length);
-                    for (var i=0; i<images.length;i++){
-                        if(images[i][0]==imageSrc){
-                            return ++i;
-                        }
-                    }
-                    return null;
-                }
-                /***
-                 * find the previous image of images-array
-                ***/
-                function  findPrevious(source){
-                    /***
-                     * imageSrc: take just the image title from the path of image source
-                    ***/
-                    var imageSrc = source.slice(1+source.search("/g_"),source.length);
-                    for (var i=0; i<images.length;i++){
-                        //should improve this noob_method
-                        if(images[i][0]==imageSrc){
-                            if (i!=0){
-                                return --i;
-                            }else{
-                                return images.length-1;
-                            }
-                        }
-                    }
-                    return null;
-                }
-                
-                var temp = document.getElementById("divModal");
-                window.onclick = function(event) {
-                    if (event.target == temp) {
-                        temp.style.display = "none";
-                        while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
-                    }
-}
-           </script>
+            
         </div>
 
 
@@ -219,3 +50,171 @@
     </div>
 </body>
 </html>
+<script>
+    /***
+             * array images with pair of image url and image label
+        ***/
+    var images = [["g_bros_nation.png","Antetokoubros"],
+                        ["g_nba2k.png","Yannis NBA 2K"],
+                        ["g_bucks_yellow.png","Yannis Bucks's yellow t-shirt"],
+                        ["g_extreme_dunk.png","Yannis extreme dunk"],
+                        ["g_dunk.png","Yannis dunk"],
+                        ["g_dunk2.png","Yannis dunk"],
+                        ["g_dunk3.png","Yannis dunk"],
+                        ["g_dunk4.png","Yannis dunk"],
+                        ["g_play_making.png","Yannis play making"],
+                        ["g_play_making2.png","Yannis play making"],
+                        ["g_jump.png","Yannis jump"],
+                        ["g_noir.png","Yannis noir photo"]];
+    function loadImage(){
+
+        var docker = document.createElement("p");
+
+        for(var i=0; i < images.length ; i++ ){
+            /***
+             * image creating, sourcing by images
+             ***/
+            var image = document.createElement("IMG");
+            image.src = "images/gallery/" + images[i][0];
+            image.alt = images[i][1];
+            image.width = 400;
+            image.height = 400;
+            image.onclick = function(i){
+                console.log(i.srcElement.src);
+                modalImage(i.srcElement.src,i.srcElement.alt);
+            };
+            /***
+             * figcaption is used to add a caption for the figure element
+             * figure element grouping image with comment 
+             ***/
+            var fcaption = document.createElement("FIGCAPTION");
+            var title = document.createTextNode(images[i][1]);
+
+            fcaption.appendChild(title);
+            var figure = document.createElement("FIGURE");
+            figure.className = "gallery";
+            figure.appendChild(image);
+            figure.appendChild(fcaption);
+
+            docker.appendChild(figure);
+        }
+        document.getElementById("yImages").appendChild(docker);
+    }
+
+    function modalImage(source,alt){
+        /***
+         * div modal
+         * image opening
+         ***/
+        var image = document.createElement("IMG");
+        image.className = ("modal-content");
+        image.src = source;
+        /***
+         * span: text with alt-image
+         ***/
+        var captionLabel = document.createElement("SPAN");
+        var t2 = document.createTextNode(alt);
+        captionLabel.appendChild(t2)
+        captionLabel.id = "caption";
+        
+        /***
+         * arrows creating (left-right)
+         ***/
+        var rightArrow = document.createElement("IMG");
+        rightArrow.src = "images/rightArrow.png";
+        rightArrow.className = "arrows";
+        rightArrow.id = "rightArrow";
+        rightArrow.onclick = function(){
+            var divModal = document.getElementById("divModal");
+            var index = findNext(source)%images.length;
+            while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
+            /*
+             * newSource: adds the path to the image title
+            */
+            var newSource = "images/gallery/" + images[index][0];
+            modalImage(newSource,images[index][1]);
+        }
+
+        var leftArrow = document.createElement("IMG");
+        leftArrow.src = "images/leftArrow.png";
+        leftArrow.className = "arrows";
+        leftArrow.id = "leftArrow";
+        leftArrow.onclick = function(){
+            console.log(source);
+            var divModal = document.getElementById("divModal");
+            var index = findPrevious(source)%images.length;
+            while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
+            /*
+             * newSource: adds the path to the image title
+            */
+            var newSource = "images/gallery/" + images[index][0];
+            modalImage(newSource,images[index][1]);
+        }
+        /***
+         * close button creating
+         ***/
+        var closeBttn = document.createElement("IMG");
+            closeBttn.src = "images/closeBttn.png";
+            closeBttn.className = "close";
+            closeBttn.onclick = function(){
+                var divModal = document.getElementById("divModal")
+                divModal.style.display = "none";
+                while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
+            }
+        
+        /***
+         * Input children nodes in parent div(modal).
+         ***/
+        var divModal = document.getElementById("divModal")
+        divModal.style.display = "block";
+        divModal.appendChild(closeBttn);
+        divModal.appendChild(rightArrow);
+        divModal.appendChild(leftArrow);
+        divModal.appendChild(image);
+        divModal.appendChild(captionLabel);
+    }
+    /***
+     * find the next image of images-array
+    ***/
+    function findNext(source){
+        /***
+         * imageSrc: take just the image title from the path of image source
+        ***/
+        // var imageSrc = source;
+        var imageSrc = source.slice(1+source.search("/g_"),source.length);
+        for (var i=0; i<images.length;i++){
+            if(images[i][0]==imageSrc){
+                return ++i;
+            }
+        }
+        return null;
+    }
+    /***
+     * find the previous image of images-array
+    ***/
+    function  findPrevious(source){
+        /***
+         * imageSrc: take just the image title from the path of image source
+        ***/
+        var imageSrc = source.slice(1+source.search("/g_"),source.length);
+        for (var i=0; i<images.length;i++){
+            //should improve this noob_method
+            if(images[i][0]==imageSrc){
+                if (i!=0){
+                    return --i;
+                }else{
+                    return images.length-1;
+                }
+            }
+        }
+        return null;
+    }
+    
+    var temp = document.getElementById("divModal");
+    window.onclick = function(event) {
+        if (event.target == temp) {
+            temp.style.display = "none";
+            while (divModal.firstChild) divModal.removeChild(divModal.firstChild);
+        }
+}
+</script>

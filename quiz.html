@@ -29,72 +29,96 @@
         </nav>
     </header>
 
-
-
     <div class="main-page">
         <div class="main-page__information">
             <div class="page-title__container">
                 <div class="page-title">QUIZ</div>
             </div>
+
+            
             <button class="quizBttn" id="startButton" onclick="startGame()">Start</button>
             <button class="quizBttn" id="statsButton">Stats</button>
             <div id="gameDiv"></div>
 
         </div>
     </div>
-    <script>
-        function startGame(){
-            var gameDiv = document.getElementById("gameDiv");
-            
-            var questForm = document.createElement("FORM");
-            questForm.id = "questForm";
-            formImplent(questForm); //import question form's elements
 
-
-           
-            gameDiv.appendChild(questForm);
-
-            
-        }
-
-        /***
-         * Create elements for the question form
-        ***/
-        function formImplent(questForm){
-            var question = document.createElement("H1");
-            question.appendChild(document.createTextNode("Questiiiooooon?"));
-            question.id = "question";
-
-            var selections = document.createElement("SELECT");
-            selections.id = "selections";
-            selections.setAttribute("size","4");
-
-            /*
-             * create options for select
-            */
-            for (var i =0;i<4;i++){
-                var option = document.createElement("option");
-                option.className = "options";
-                option.id = "option" + i;
-                option.appendChild(document.createTextNode("Optiooooon" + (i+1)));
-                selections.appendChild(option);
-            }
-            
-            var nextBttn = document.createElement("BUTTON");
-            nextBttn.appendChild(document.createTextNode("Next"));
-            nextBttn.id = "nextBttn";
-            
-            var prevBttn = document.createElement("BUTTON");
-            prevBttn.appendChild(document.createTextNode("Previous"));
-            prevBttn.id = "prevBttn";
-            
-            questForm.appendChild(question);
-            questForm.appendChild(selections);
-            questForm.appendChild(nextBttn);
-            questForm.appendChild(prevBttn);
-        }
-    </script>
-
+    <div class="banners">
+        <a href="https://www.nba.com"><img src="./images/nba.png" alt="NBA_LOGO" height="200px" width="200px"></a>
+        <a href="https://www.facebook.com/GreekFreakOfficial/"><img src="./images/fb.png" alt="FACEBOOK_LOGO"
+                height="150px" width="150px"></a>
+        <a href="https://www.nba.com/bucks"><img src="./images/bucks.png" alt="BUCK_LOGOG" height="230px" width="200px"></a>
+    </div>
 </body>
 
 </html>
+
+<script>
+    var quizData = [["Question1","Answer1.1","Answer2.1","Answer3.1","Answer4.1",1], //the last element is the right answer
+                    ["Question2","Answer1.2","Answer2.2","Answer3.2","Answer4.2",2],
+                    ["Question3","Answer1.3","Answer2.3","Answer3.3","Answer4.3",3],
+                    ["Question4","Answer1.4","Answer2.4","Answer3.4","Answer4.4",4],
+                    ["Question5","Answer1.5","Answer2.5","Answer3.5","Answer4.5",1]]
+    function startGame(){
+        var userAnswers = [];
+        var gameDiv = document.getElementById("gameDiv");
+        
+        while(true){
+            var questForm = formCreator();
+            questForm.id = "questForm";
+
+            gameDiv.appendChild(questForm);
+        }
+            
+
+
+    }
+
+    /***
+     * Create elements for the question form
+    ***/
+    function formCreator(){
+
+        var questForm = document.createElement("FORM");
+
+        var question = document.createElement("H1");
+        question.appendChild(document.createTextNode("Questiiiooooon?"));
+        question.id = "question";
+
+        var selections = document.createElement("SELECT");
+        selections.id = "selections";
+        selections.setAttribute("size","4");
+
+        /*
+         * create options for select
+        */
+        for (var i =0;i<4;i++){
+            var option = document.createElement("option");
+            option.className = "options";
+            option.id = "option" + i;
+            option.appendChild(document.createTextNode("Optiooooon" + (i+1)));
+            selections.appendChild(option);
+        }
+        
+        var nextBttn = document.createElement("BUTTON");
+        nextBttn.appendChild(document.createTextNode("Next"));
+        nextBttn.id = "nextBttn";
+        
+        var prevBttn = document.createElement("BUTTON");
+        prevBttn.appendChild(document.createTextNode("Previous"));
+        prevBttn.id = "prevBttn";
+        
+        // var stepDiv = document.createElement("div");
+
+        // for (var i=0; i<quizData.length;i++){
+
+        // }
+        
+        questForm.appendChild(question);
+        questForm.appendChild(selections);
+        questForm.appendChild(nextBttn);
+        questForm.appendChild(prevBttn);
+
+        return questForm;
+    }
+</script>

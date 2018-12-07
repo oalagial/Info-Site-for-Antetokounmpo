@@ -10,3 +10,17 @@
     font-family: Raleway;
     color: black;
 }
+#selections {
+    
+    width: fixed;
+    height: auto;
+    border: none;
+    padding-bottom: 10%;
+
+}
+.options{
+    font-size: large;
+    width: auto;
+    height: auto;
+    background-color: DodgerBlue;
+}
