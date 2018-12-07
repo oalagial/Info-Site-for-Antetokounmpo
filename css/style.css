@@ -126,7 +126,6 @@
         border-radius: 10px;
         padding:20px;
         background-color: lightgray;
-        max-height: 350px;
         color:black;
         overflow-y: auto;
     }
