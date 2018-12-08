@@ -18,7 +18,6 @@
             <h1>Giannis Antetokounmpo</h1>
         </div>
         <nav>
-            <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="stats.html">Stats</a></li>
@@ -62,7 +61,7 @@
     * startGame()
     ***/
     function startGame(){
-        document.getElementById("button-container").style.display = "none";
+        document.getElementById("button-container").className = "hide-element";
         
         var gameDiv = document.getElementById("gameDiv");
         
@@ -71,15 +70,14 @@
         
         var endGame = document.createElement("SPAN");
         endGame.id = "endGame";
-        endGame.style.display = "none";
+        endGame.className = "hide-element";
         var menuBttn = document.createElement("BUTTON");
         menuBttn.appendChild(document.createTextNode("Menu"));
         menuBttn.id = "menuBttn";
-        menuBttn.className = "quizBttn"
-        menuBttn.style.display = "none";
+        menuBttn.className = "hide-element";
         menuBttn.onclick = function(){
-            document.getElementById("button-container").style.display = "block";
-            document.getElementById("menuBttn").style.display = "none";
+            document.getElementById("button-container").className = "quiz__information-container";
+            document.getElementById("menuBttn").className = "hide-element";
             while (gameDiv.firstChild) gameDiv.removeChild(gameDiv.firstChild);
         }
         
@@ -93,7 +91,7 @@
 
     function formCreator(){
         var questForm = document.createElement("FORM");
-        questForm.className="quiz__information-container";
+        questForm.className="questForm-container";
         questForm.id = "questForm";
         var question = questionCreator(0);
         
@@ -151,16 +149,18 @@
             userAnswersUpdate(qIndex,selections.selectedIndex);
             while (questDiv.firstChild) questDiv.removeChild(questDiv.firstChild);
             if((1+qIndex) < quizData.length){
+                var questForm = document.getElementById("questForm");
                 questForm.appendChild(questionCreator(1+qIndex));
             }else{//when the game is over
                 var endText = document.getElementById("endGame");
                 var text = "Your score is " + scoreCalculation() + " in " + quizData.length + " questions!";
                 endText.appendChild(document.createTextNode(text));
-                endText.style.display = "block";
-                questForm.style.display = "none";
+                endText.className = "visible-element";
+                var questForm = document.getElementById("questForm");
+                questForm.className = "hide-element";
 
                 var endButton = document.getElementById("menuBttn");
-                endButton.style.display = "block";
+                endButton.className = "quizBttn visible-element";
                 
             }
         };
@@ -169,7 +169,7 @@
         prevBttn.appendChild(document.createTextNode("Previous"));
         prevBttn.className = "quizBttn";
         prevBttn.id = "prevBttn";
-        prevBttn.style.visibility = (qIndex==0) ? "hidden" :"visible"; //hide in the first question
+        prevBttn.className = (qIndex==0) ? "hide-element" :"quizBttn visible-element"; //hide in the first question
         prevBttn.onclick = function(){
             while (questDiv.firstChild) questDiv.removeChild(questDiv.firstChild);
             questForm.appendChild(questionCreator(qIndex-1));
